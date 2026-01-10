@@ -1,26 +1,24 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/common/layout';
-import Home from "./pages/Home";
+import Home from "./pages/Home";       // Vérifie la casse exacte
+import Accueil from "./pages/Accueil"; // idem
 import Prestations from './pages/Prestations';
 import Produits from './pages/Produits';
 import Galerie from './pages/Galerie';
 import Contact from './pages/Contact';
-import AdminDashboard from './pages/AdminDashboard';
-import { Toaster } from 'sonner';
+
 
 function App() {
   return (
-    <>
-      <Toaster position="top-right" richColors />
+    <Layout>
       <Routes>
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/" element={<Layout><Home /></Layout>} />
-        <Route path="/prestations" element={<Layout><Prestations /></Layout>} />
-        <Route path="/produits" element={<Layout><Produits /></Layout>} />
-        <Route path="/galerie" element={<Layout><Galerie /></Layout>} />
-        <Route path="/contact" element={<Layout><Contact /></Layout>} />
+        <Route path="/" element={<Home />} /> {/* Changé ici */}
+        <Route path="/prestations" element={<Prestations />} />
+        <Route path="/produits" element={<Produits />} />
+        <Route path="/galerie" element={<Galerie />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
-    </>
+    </Layout>
   );
 }
 
