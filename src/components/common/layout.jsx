@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Scissors, Menu, X, Phone, Mail, Instagram, Facebook } from 'lucide-react';
+import { Scissors, Menu, X, Phone, Mail, Instagram, Facebook, LogIn, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/use-auth';
+import { AuthModal } from './auth-modal';
 
 const navigationItems = [
   { title: "Accueil", url: createPageUrl("Accueil") },
@@ -15,6 +17,8 @@ const navigationItems = [
 export default function Layout({ children }) {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const { user } = useAuth();
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] flex flex-col">
@@ -76,12 +80,32 @@ export default function Layout({ children }) {
               ))}
             </nav>
 
-            {/* CTA Button Desktop */}
-            <Link to={createPageUrl("Contact")}>
-              <Button className="hidden md:flex bg-[#C9A55C] hover:bg-[#B8944B] text-white px-6 py-2 rounded-full transition-all duration-300 hover:shadow-lg">
-                Prendre RDV
-              </Button>
-            </Link>
+            {/* CTA Buttons Desktop */}
+            <div className="hidden md:flex items-center gap-4">
+              {user ? (
+                <Link to="/profile">
+                  <Button variant="outline" className="border-[#C9A55C] text-[#C9A55C] hover:bg-[#C9A55C] hover:text-white px-6 py-2 rounded-full transition-all duration-300 flex items-center gap-2">
+                    <User className="w-4 h-4" />
+                    Mon compte
+                  </Button>
+                </Link>
+              ) : (
+                <Button 
+                  onClick={() => setIsAuthModalOpen(true)}
+                  variant="ghost" 
+                  className="text-[#2D2D2D] hover:text-[#C9A55C] px-4 py-2 flex items-center gap-2"
+                >
+                  <LogIn className="w-4 h-4" />
+                  Connexion
+                </Button>
+              )}
+
+              <Link to={createPageUrl("Contact")}>
+                <Button className="bg-[#C9A55C] hover:bg-[#B8944B] text-white px-6 py-2 rounded-full transition-all duration-300 hover:shadow-lg">
+                  Prendre RDV
+                </Button>
+              </Link>
+            </div>
 
             {/* Mobile Menu Button */}
             <button
@@ -115,11 +139,35 @@ export default function Layout({ children }) {
                   {item.title}
                 </Link>
               ))}
-              <Link to={createPageUrl("Contact")} onClick={() => setMobileMenuOpen(false)}>
-                <Button className="w-full bg-[#C9A55C] hover:bg-[#B8944B] text-white py-3 rounded-full mt-4">
-                  Prendre RDV
-                </Button>
-              </Link>
+              
+              <div className="pt-4 space-y-3">
+                {user ? (
+                  <Link to="/profile" onClick={() => setMobileMenuOpen(false)}>
+                    <Button variant="outline" className="w-full border-[#C9A55C] text-[#C9A55C] py-3 rounded-full flex items-center justify-center gap-2">
+                      <User className="w-5 h-5" />
+                      Mon compte
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button 
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      setIsAuthModalOpen(true);
+                    }}
+                    variant="outline" 
+                    className="w-full border-gray-300 text-[#2D2D2D] py-3 rounded-full flex items-center justify-center gap-2"
+                  >
+                    <LogIn className="w-5 h-5" />
+                    Se connecter
+                  </Button>
+                )}
+
+                <Link to={createPageUrl("Contact")} onClick={() => setMobileMenuOpen(false)}>
+                  <Button className="w-full bg-[#C9A55C] hover:bg-[#B8944B] text-white py-3 rounded-full">
+                    Prendre RDV
+                  </Button>
+                </Link>
+              </div>
             </nav>
           </div>
         )}
@@ -213,6 +261,8 @@ export default function Layout({ children }) {
           </div>
         </div>
       </footer>
+
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </div>
   );
 }

@@ -8,7 +8,6 @@ import Produits from './pages/Produits';
 import Galerie from './pages/Galerie';
 import Contact from './pages/Contact';
 import Admin from './pages/Admin';
-import Profile from './pages/Profile';
 
 function ScrollToHash() {
   const { pathname, hash } = useLocation();
@@ -40,7 +39,6 @@ function App() {
         <Route path="/galerie" element={<Galerie />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Layout>
   );

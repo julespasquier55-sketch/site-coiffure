@@ -4,6 +4,7 @@ import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star, Users, Award, Clock, Scissors, Check, Calendar, MapPin, Phone, Heart, Sparkles, Instagram, Facebook } from "lucide-react";
 import { motion } from "framer-motion";
+import HeroSection from "@/components/sections/hero";
 
 export default function Home() {
   // Services principaux
@@ -18,7 +19,7 @@ export default function Home() {
       features: ["Consultation personnalisée", "Shampooing premium", "Brushing professionnel"]
     },
     {
-      title: "Coupe Homme", 
+      title: "Coupe Homme",
       description: "Coupe moderne et dégradé précis",
       price: "30€",
       duration: "45min",
@@ -30,7 +31,7 @@ export default function Home() {
       title: "Coloration",
       description: "Coloration professionnelle et durable",
       price: "85€",
-      duration: "2h", 
+      duration: "2h",
       image: "https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=600&q=80",
       icon: Sparkles,
       features: ["Diagnostic capillaire", "Couleur sur-mesure", "Soin protecteur"]
@@ -83,54 +84,7 @@ export default function Home() {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=1600&q=80"
-            alt="Salon de coiffure"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#2D2D2D]/90 via-[#2D2D2D]/70 to-transparent" />
-        </div>
-        
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-2xl"
-          >
-            <div className="inline-flex items-center gap-2 bg-[#C9A55C]/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-[#C9A55C]/30">
-              <Star className="w-4 h-4 text-[#C9A55C] fill-[#C9A55C]" />
-              <span className="text-sm text-white font-medium">Salon 5 étoiles sur Google</span>
-            </div>
-            
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-tight mb-6">
-              L'art de la
-              <span className="block text-[#C9A55C]">coiffure</span>
-            </h1>
-            
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              Découvrez notre salon expert en coiffure pour hommes, femmes et enfants. 
-              Une équipe passionnée à votre service depuis 2010.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link to={createPageUrl("Prestations")}>
-                <Button className="bg-[#C9A55C] hover:bg-[#B8944B] text-white px-8 py-6 rounded-full text-base font-medium shadow-lg hover:shadow-xl transition-all duration-300 group">
-                  Nos prestations
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link to={createPageUrl("Contact")}>
-                <Button variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-[#2D2D2D] px-8 py-6 rounded-full text-base font-medium transition-all duration-300">
-                  Prendre rendez-vous
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* Stats Section */}
       <section className="py-16 bg-white relative -mt-20 mx-4 md:mx-8 rounded-3xl shadow-2xl z-10">
@@ -245,7 +199,7 @@ export default function Home() {
                 Pourquoi nous choisir ?
               </h2>
               <p className="text-lg text-gray-600 mb-8">
-                Depuis plus de 14 ans, nous mettons notre expertise et notre passion 
+                Depuis plus de 14 ans, nous mettons notre expertise et notre passion
                 au service de votre beauté. Notre engagement : des résultats exceptionnels.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
