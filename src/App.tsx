@@ -1,28 +1,29 @@
-import { Routes, Route } from 'react-router-dom';
-import Layout from './components/common/layout';
-import Home from "./pages/Home";       // Vérifie la casse exacte
-import Accueil from "./pages/Accueil"; // idem
-import Prestations from './pages/Prestations';
-import Produits from './pages/Produits';
-import Galerie from './pages/Galerie';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MainLayout from './components/layout/MainLayout';
+import Home from './pages/Home';
+import Services from './pages/Services';
+import Gallery from './pages/Gallery';
+import Products from './pages/Products';
 import Contact from './pages/Contact';
-import AdminSubmissions from './pages/AdminSubmissions';
+import Admin from './pages/Admin';
 import { Toaster } from 'sonner';
-
 
 function App() {
   return (
-    <Layout>
-      <Toaster position="top-right" richColors />
+    <Router>
+      <Toaster position="top-center" richColors />
       <Routes>
-        <Route path="/" element={<Home />} /> {/* Changé ici */}
-        <Route path="/prestations" element={<Prestations />} />
-        <Route path="/produits" element={<Produits />} />
-        <Route path="/galerie" element={<Galerie />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/admin" element={<AdminSubmissions />} />
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
+          <Route path="prestations" element={<Services />} />
+          <Route path="galerie" element={<Gallery />} />
+          <Route path="produits" element={<Products />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="admin" element={<Admin />} />
+        </Route>
       </Routes>
-    </Layout>
+    </Router>
   );
 }
 
